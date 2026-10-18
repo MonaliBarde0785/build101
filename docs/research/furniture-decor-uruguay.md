@@ -55,7 +55,7 @@ Sodimac, Divino, Balton, La Cueva, ComboHome sell on price, cuotas and fast deli
 
 ## Commercial calendar
 
-Candidates for `commercial_dates_uy.json` ([agents.md § Content Strategist](../architecture/agents.md#content-strategist)). The Cámara Nacional de Comercio y Servicios sets Mother's and Father's Day each year, so those dates need checking yearly.
+Candidates for `commercial_dates_uy.json` ([agents.md § Content Strategist](../architecture/agents.md#content-strategist)); the entries with a confirmed date are already in `backend/app/agents/data/commercial_dates_uy.json` and read through `commercial_dates_between(start, end)`. The Cámara Nacional de Comercio y Servicios sets Mother's and Father's Day each year, so those dates need checking yearly.
 
 | Date | Event | Source |
 |---|---|---|
