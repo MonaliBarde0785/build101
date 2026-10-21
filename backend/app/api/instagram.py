@@ -53,7 +53,8 @@ BINDING_COOKIE_PATH = CALLBACK_PATH.rsplit("/", 1)[0]
 # Signs the OAuth state when there is no app secret, i.e. INSTAGRAM=mock
 DEV_STATE_SECRET = secrets.token_hex(32)
 CONNECT_EXPIRED = "Se venció la conexión con Instagram. Volvé al formulario y probá de nuevo."
-    
+
+
 def _connection_error_page(settings: Settings, message: str) -> HTMLResponse:
     """Show a readable recovery page when the OAuth browser binding is missing or invalid."""
     from html import escape
@@ -129,9 +130,7 @@ async def start_instagram(
         logger.warning("instagram start with a bad ticket: %s", exc)
         return _connection_error_page(settings, CONNECT_EXPIRED)
 
-    onboarding = await get_open_onboarding(
-        await get_onboarding(token, session), session, pilot
-    )
+    onboarding = await get_open_onboarding(await get_onboarding(token, session), session, pilot)
     if not instagram_allowed(settings, onboarding.business):
         raise ApiError(
             403,
@@ -173,7 +172,7 @@ async def instagram_callback(
         response: Response = await _finish_connect(
             token, code, error, request, session, settings, instagram, pilot
         )
-    
+
     except ApiError as exc:
         if exc.code == "invalid_state":
             response = _connection_error_page(settings, CONNECT_EXPIRED)
@@ -222,7 +221,6 @@ async def _finish_connect(
         return RedirectResponse(wizard, status_code=303)
     back = f"{wizard}?step=instagram&connected="
 
-    
     if error or not code:
         logger.info("instagram connect for %s not authorized: %s", business.id, error)
         return RedirectResponse(

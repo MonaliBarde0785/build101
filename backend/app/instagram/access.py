@@ -8,8 +8,6 @@ def instagram_allowed(settings: Settings, business: Business) -> bool:
         return True
 
     allowed_ids = {
-        item.strip()
-        for item in settings.instagram_pilot_businesses.split(",")
-        if item.strip()
+        item.strip() for item in settings.instagram_pilot_businesses.split(",") if item.strip()
     }
     return "*" in allowed_ids or str(business.id) in allowed_ids

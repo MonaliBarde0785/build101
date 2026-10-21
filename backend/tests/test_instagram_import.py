@@ -143,6 +143,7 @@ async def test_connect_is_refused_when_business_is_not_in_instagram_pilot(
     assert response.status_code == 403
     assert response.json()["error"]["code"] == "instagram_not_allowed"
 
+
 async def test_connecting_keeps_the_token_queues_the_import_and_returns_to_the_wizard(
     client: httpx.AsyncClient, sessions: async_sessionmaker[AsyncSession]
 ) -> None:
@@ -189,9 +190,7 @@ async def test_a_refused_consent_returns_to_the_wizard_without_connecting(
         headers=binding_cookie(started),
     )
 
-    assert response.headers["location"].endswith(
-    "?step=instagram&connected=0&reason=declined"
-)
+    assert response.headers["location"].endswith("?step=instagram&connected=0&reason=declined")
     async with sessions() as db:
         assert await db.scalar(select(SocialAccount)) is None
 
