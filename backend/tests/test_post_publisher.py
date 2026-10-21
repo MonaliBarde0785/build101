@@ -590,9 +590,7 @@ def test_the_chat_publishes_behind_the_guard_from_the_settings(
         unnamed = build_conversation(
             chat_settings(env="prod"), PublicImages(), MockPublisher(), PublicVideos()
         )
-    local = build_conversation(
-        chat_settings(), PublicImages(), MockPublisher(), PublicVideos()
-    )
+    local = build_conversation(chat_settings(), PublicImages(), MockPublisher(), PublicVideos())
 
     def guard(conversation: Conversation) -> SharedAccountGuard:
         return conversation.handler._buttons._publisher._shared_account

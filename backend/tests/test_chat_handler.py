@@ -607,11 +607,11 @@ def test_factory_builds_each_handler() -> None:
         PublicVideos(),
     )
     echo = build_conversation(
-         Settings(inbound_handler="echo"),
-         PublicImages(),
-         MockPublisher(),
-         PublicVideos(),
-)
+        Settings(inbound_handler="echo"),
+        PublicImages(),
+        MockPublisher(),
+        PublicVideos(),
+    )
 
     assert isinstance(chat.handler, ChatHandler)
     assert isinstance(echo.handler, EchoHandler)
